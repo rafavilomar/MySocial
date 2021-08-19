@@ -5,16 +5,30 @@ const db = {
 };
 
 export const list = (table) => {
-  return db[table]
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(db[table])  
+    } catch (error) {
+      reject(error)
+    }
+  })
 }
 
 export const get = (table, id) => {
-  col = list(table);
-  return col.filter(item => item.id === id)[0] || null
+  return new Promise( async (resolve, reject) => {
+    try {
+      let col = await list(table);
+      let res = col.filter(item => item.id == id)[0] || null;
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  })
 }
 
 export const upsert = (table, data) => {
   db[table].push(data)
+  return true;
 }
 
 export const remove = (table, id) => {
