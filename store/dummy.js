@@ -27,10 +27,22 @@ export const get = (table, id) => {
 }
 
 export const upsert = (table, data) => {
-  db[table].push(data)
-  return true;
+  return new Promise((resolve, reject) => {
+    try {
+      db[table].push(data)
+      resolve(true)
+    } catch (error) {
+      reject('error')
+    }
+  })
 }
 
 export const remove = (table, id) => {
-  return true;
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(true)
+    } catch (error) {
+      reject(error)
+    }
+  })
 }
