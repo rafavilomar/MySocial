@@ -1,6 +1,7 @@
 import express from 'express';
-import response from '../../../network/response.js';
-import Controller from './controller.js'
+import {error, success} from '../../../network/response.js';
+import Controller from './controller.js';
+
 
 const router = express.Router();
 
@@ -12,27 +13,28 @@ router.delete('/:id', remove)
 
 // Functions
 function list(req, res){
+  //console.log(res.status)
   Controller.list()
-    .then(list => response.success(req, res, list))
-    .catch(error => response.error(req, req, error.message))
+    .then(list => success(req, res, list))
+    .catch(err => error(req, res, err.message))
 };
 
 function get(req, res){
   Controller.get(req.params.id)
-    .then(user => response.success(req, res, user))
-    .catch(error => response.error(req, req, error.message))
+    .then(user => success(req, res, user))
+    .catch(err => error(req, res, err.message))
 };
 
 function upsert(req, res){
   Controller.upsert(req.body)
-    .then(user => response.success(req, res, user, 201))
-    .catch(error => response.error(req, req, error.message))
+    .then(user => success(req, res, user, 201))
+    .catch(err => error(req, res, err.message))
 };
 
 function remove(req, res){
   Controller.remove(req.params.id)
-    .then(user => response.success(req, res, user, 200))
-    .catch(error => response.error(req, req, error.message))
+    .then(user => success(req, res, user, 200))
+    .catch(err => error(req, res, err.message))
 };
 
 export default router;

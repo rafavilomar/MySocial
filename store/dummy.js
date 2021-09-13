@@ -1,48 +1,44 @@
 const db = {
-  'user': [
-    {id: 1, name: 'Jhon'}
-  ]
+    'user': [
+        { id: '1', name: 'Carlos' },
+    ],
 };
 
-export const list = (table) => {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(db[table])  
-    } catch (error) {
-      reject(error)
-    }
-  })
+async function list(tabla) {
+    return db[tabla] || [];
 }
 
-export const get = (table, id) => {
-  return new Promise( async (resolve, reject) => {
-    try {
-      let col = await list(table);
-      let res = col.filter(item => item.id == id)[0] || null;
-      resolve(res)
-    } catch (error) {
-      reject(error)
-    }
-  })
+async function get(tabla, id) {
+    let col = await list(tabla);
+    return col.filter(item => item.id === id)[0] || null;
 }
 
-export const upsert = (table, data) => {
-  return new Promise((resolve, reject) => {
-    try {
-      db[table].push(data)
-      resolve(true)
-    } catch (error) {
-      reject('error')
+async function upsert(tabla, data) {
+    if (!db[tabla]) {
+        db[tabla] = [];
     }
-  })
+
+    db[tabla].push(data);
+
+    console.log(db);
 }
 
-export const remove = (table, id) => {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(true)
-    } catch (error) {
-      reject(error)
-    }
-  })
+async function remove(tabla, id) {
+    return true;
 }
+
+async function query(tabla, q) {
+    let col = await list(tabla);
+    let keys = Object.keys(q);
+    let key = keys[0];
+    
+    return col.filter(item => item[key] === q[key])[0] || null;
+}
+
+module.exports = {
+    list,
+    get,
+    upsert,
+    remove,
+    query,
+};
