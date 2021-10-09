@@ -8,15 +8,20 @@ const authController = {
     login : async (username, password, injectedStore = store) => {
         const data = await injectedStore.query(TABLA, { username: username });
         
-        return bcrypt.compare(password, data.password)
+        if (data) {
+            return bcrypt.compare(password, data[0].password)
             .then(sonIguales => {
                 if (sonIguales === true) {
                     // Generar token;
-                    return sign(data)
+                    return sign(data[0])
                 } else {
                     throw new Error('Informacion invalida');
                 }
-            });
+            });    
+        } else {
+            throw new Error('Información invalida')
+        }
+        
     },
     upsert : async (data, injectedStore = store) => {
         

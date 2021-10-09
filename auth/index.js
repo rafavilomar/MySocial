@@ -5,7 +5,7 @@ import error from '../utils/error.js'
 const secret = config.jwt.secret;
 
 export const sign = (data) => {
-    return jwt.sign(data, secret);
+    return jwt.sign(JSON.stringify(data), secret);
 }
 
 function verify(token) {
@@ -21,6 +21,10 @@ export const check = {
             throw error('No puedes hacer esto', 401);
         }
     },
+    logged: function(req){
+        const decoded = decodeHeader(req);
+        console.log(decoded);
+    }
 }
 
 function getToken(auth) {

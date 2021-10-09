@@ -1,22 +1,24 @@
+import {config as envConfig} from 'dotenv';
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
 
 import config from '../config.js';
 import user from './components/user/routes.js';
 import auth from './components/auth/network.js';
+import post from './components/post/router.js';
+
 import errors from '../network/errors.js';
-import swaggerDoc from './swagger.js'
 
-
+//envConfig();
+console.log(process.env.API_PORT);
 const app = express();
 
 app.use(bodyParser.json());
 
-// ROUER
+// ROUTER
 app.use('/api/user', user);
 app.use('/api/auth', auth);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/api/post', post);
 
 app.use(errors);
 
