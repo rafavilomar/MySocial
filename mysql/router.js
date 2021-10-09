@@ -1,5 +1,5 @@
 import express from 'express';
-import { error, success } from '../network/response';
+import { error, success } from '../network/response.js';
 import secure from '../api/components/auth/secure.js';
 
 import * as store from '../store/mysql.js'
@@ -35,3 +35,5 @@ function upsert(req, res) {
     .then(element => success(req, res, element))
     .catch(err => error(req, res, err.message));
 }
+
+export default router;
