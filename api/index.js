@@ -1,4 +1,3 @@
-import {config as envConfig} from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -9,8 +8,6 @@ import post from './components/post/router.js';
 
 import errors from '../network/errors.js';
 
-//envConfig();
-console.log(process.env.API_PORT);
 const app = express();
 
 app.use(bodyParser.json());
@@ -20,6 +17,7 @@ app.use('/api/user', user);
 app.use('/api/auth', auth);
 app.use('/api/post', post);
 
+// comment from vim
 app.use(errors);
 
 app.listen(config.api.port, () => {

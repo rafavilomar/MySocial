@@ -71,7 +71,6 @@ export const update = (table, data) => {
 }
 
 export const upsert = async (table, data) => {
-    console.log(data);
     let response = await get(table, data.id);
     console.log(response);
     if (response.length > 0) {

@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // ROUTES
+
 app.use(router);
 
 app.listen(config.mysql.port, () => {

@@ -17,7 +17,7 @@ router.put('/', secure('update'), upsert);
 
 // Functions
 function list(req, res){
-  Controller.list()
+  Controller.list(req.headers)
     .then(list => success(req, res, list))
     .catch(err => error(req, res, err.message))
 };

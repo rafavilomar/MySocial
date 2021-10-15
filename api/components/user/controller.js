@@ -1,4 +1,5 @@
-import * as store from '../../../store/mysql.js';
+//import * as store from '../../../store/mysql.js';
+import store from '../../../store/remote-mysql.js';
 
 import authController from '../auth/controller.js';
 import { nanoid } from 'nanoid';
@@ -6,7 +7,7 @@ import { nanoid } from 'nanoid';
 const TABLE = 'user';
 
 const Controller = {
-    list : (injectedStore = store) => injectedStore.list(TABLE),
+    list : (headers, injectedStore = store) => injectedStore.list(TABLE, headers),
     get : (id, injectedStore = store) => injectedStore.get(TABLE, id),
     upsert : (data = {id: null, name: null, username: null, password: null }, injectedStore = store) => {
       let user = {
