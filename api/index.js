@@ -17,7 +17,7 @@ app.use('/api/user', user);
 app.use('/api/auth', auth);
 app.use('/api/post', post);
 
-// comment from vim
+// now from nvim
 app.use(errors);
 
 app.listen(config.api.port, () => {
