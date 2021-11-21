@@ -11,7 +11,7 @@ const createRemoteDB = (host, port) => {
     
   }
 
-  function upser(table, data) {
+  function upsert(table, data) {
     
   }
 
@@ -37,6 +37,6 @@ const createRemoteDB = (host, port) => {
     }
   }
 
-  return {list}
+  return {list, upsert}
 }
 export default createRemoteDB;
